@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Amnesty International</title>
+  <style>
+    :root {
+      --jaune-amnesty: #ffcc00;
+      --noir: #000000;
+      --blanc: #ffffff;
+      --gris: #f9f9f9;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--gris);
+      color: var(--noir);
+      scroll-behavior: smooth;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    body.dark-mode {
+      background-color: var(--noir);
+      color: var(--jaune-amnesty);
+    }
+
+    header {
+      background: url('https://images.unsplash.com/photo-1618221703671-f5943e05f2aa?auto=format&fit=crop&w=1950&q=80') no-repeat center center/cover;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: var(--blanc);
+      text-shadow: 1px 1px 6px var(--noir);
+      animation: fadeIn 2s ease-out;
+    }
+
+    header h1 {
+      font-size: 4em;
+      margin-bottom: 10px;
+    }
+
+    header p {
+      font-size: 1.7em;
+      max-width: 800px;
+      margin-bottom: 20px;
+    }
+
+    nav {
+      background-color: var(--noir);
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 20px;
+      padding: 10px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    nav a {
+      color: var(--jaune-amnesty);
+      text-decoration: none;
+      font-weight: bold;
+      margin-left: auto;
+      padding: 10px 15px;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    nav a:hover {
+      background-color: var(--jaune-amnesty);
+      color: var(--noir);
+    }
+
+    /* Boutons de langue et dark mode */
+    #controls {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+      margin-right: auto;
+    }
+
+    button.control-btn {
+      background-color: var(--jaune-amnesty);
+      border: none;
+      padding: 8px 12px;
+      font-weight: bold;
+      border-radius: 5px;
+      cursor: pointer;
+      color: var(--noir);
+      font-size: 1em;
+      transition: background-color 0.3s ease;
+    }
+
+    button.control-btn:hover {
+      background-color: #e6b800;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    .section-title {
+      font-size: 2.5em;
+      margin-bottom: 20px;
+      border-left: 5px solid var(--jaune-amnesty);
+      padding-left: 15px;
+      color: var(--noir);
+      transition: color 0.3s;
+    }
+
+    body.dark-mode .section-title {
+      color: var(--jaune-amnesty);
+    }
+
+    section {
+      margin-bottom: 50px;
+    }
+
+    article {
+      background: var(--blanc);
+      padding: 20px;
+      margin-bottom: 15px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgb(0 0 0 / 0.1);
+      color: var(--noir);
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    body.dark-mode article {
+      background: #222;
+      color: var(--jaune-amnesty);
+      box-shadow: 0 4px 8px rgb(255 204 0 / 0.3);
+    }
+
+    article h3 {
+      margin-top: 0;
+      font-size: 1.5em;
+      margin-bottom: 10px;
+    }
+
+    article p {
+      line-height: 1.5;
+      font-size: 1.1em;
+    }
+
+    footer {
+      background-color: var(--noir);
+      color: var(--jaune-amnesty);
+      text-align: center;
+      padding: 20px;
+      font-weight: bold;
+      letter-spacing: 0.05em;
+    }
+
+    /* Formulaire Contact */
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      max-width: 500px;
+      margin-top: 20px;
+    }
+
+    label {
+      font-weight: bold;
+      font-size: 1.1em;
+      color: var(--noir);
+      transition: color 0.3s;
+    }
+
+    body.dark-mode label {
+      color: var(--jaune-amnesty);
+    }
+
+    input[type="text"],
+    input[type="email"],
+    textarea {
+      padding: 10px;
+      font-size: 1em;
+      border: 2px solid var(--jaune-amnesty);
+      border-radius: 5px;
+      resize: vertical;
+      transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+      color: var(--noir);
+      background-color: var(--blanc);
+    }
+
+    body.dark-mode input[type="text"],
+    body.dark-mode input[type="email"],
+    body.dark-mode textarea {
+      background-color: #333;
+      color: var(--jaune-amnesty);
+      border-color: var(--jaune-amnesty);
+    }
+
+    button[type="submit"] {
+      background-color: var(--jaune-amnesty);
+      border: none;
+      padding: 12px 20px;
+      font-weight: bold;
+      border-radius: 6px;
+      font-size: 1.1em;
+      cursor: pointer;
+      color: var(--noir);
+      transition: background-color 0.3s ease;
+      max-width: 150px;
+      align-self: flex-start;
+    }
+
+    button[type="submit"]:hover {
+      background-color: #e6b800;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      header h1 { font-size: 2.5em; }
+      nav {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      #controls {
+        margin-bottom: 10px;
+        margin-right: 0;
+      }
+      nav a {
+        margin-left: 0;
+        margin-bottom: 8px;
+      }
+      form {
+        max-width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Amnesty International</h1>
+    <p id="header-desc">Défendons les droits humains partout dans le monde.</p>
+  </header>
+
+  <nav>
+    <div id="controls" aria-label="Contrôles du site">
+      <button id="toggle-lang" class="control-btn" aria-pressed="false" aria-label="Changer la langue">FR</button>
+      <button id="toggle-darkmode" class="control-btn" aria-pressed="false" aria-label="Activer le mode sombre">🌙</button>
+    </div>
+    <a href="#presentation">Présentation</a>
+    <a href="#campagnes">Campagnes</a>
+    <a href="#actions">Actions</a>
+    <a href="#actualites">Actualités</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <main>
+
+    <section id="presentation" tabindex="0">
+      <h2 class="section-title" id="presentation-title">Présentation</h2>
+      <p id="presentation-text">Amnesty International est une organisation mondiale indépendante qui lutte pour le respect, la protection et la promotion des droits humains. Depuis 1961, elle enquête, expose les abus, et mobilise les citoyens.</p>
+      <div class="quote" aria-label="Devise d'Amnesty International" style="font-style: italic; margin-top: 1em; font-size: 1.2em; color: var(--jaune-amnesty);" id="presentation-quote">
+        « Il vaut mieux allumer une bougie que maudire l'obscurité. »
+      </div>
+    </section>
+
+    <section id="campagnes" tabindex="0">
+      <h2 class="section-title" id="campagnes-title">Campagnes en cours</h2>
+      <p id="campagnes-text">Nous nous engageons contre les violences policières, pour les droits des réfugiés, la liberté d'expression, les droits des femmes, et l'abolition de la peine de mort.</p>
+      <div class="stats" aria-label="Statistiques d'Amnesty International" style="display:flex; gap: 30px; margin-top: 20px; font-weight: bold; color: var(--noir);" id="campagnes-stats">
+        <div>+10M membres</div>
+        <div>+150 pays</div>
+        <div>+60 ans d'action</div>
+      </div>
+    </section>
+
+    <section id="actions" tabindex="0">
+      <h2 class="section-title" id="actions-title">Nos Actions</h2>
+      <p id="actions-text">Chaque année, Amnesty mobilise des millions de personnes autour d’actions de plaidoyer, d’envoi de lettres, et de campagnes pour changer des lois injustes.</p>
+      <div class="highlight" style="background: var(--jaune-amnesty); padding: 15px; border-radius: 10px; margin-top: 20px; font-weight: bold;" id="actions-highlight">
+        ✊ Amnesty a contribué à la libération de plus de 1000 prisonniers d'opinion depuis sa création.
+      </div>
+    </section>
+
+    <section id="actualites" tabindex="0">
+      <h2 class="section-title" id="actualites-title">Actualités</h2>
+
+      <article>
+        <h3>🔴 2025 : Rapport sur les violations à Gaza</h3>
+        <p>Amnesty International publie un rapport alarmant sur les violations des droits humains dans la région de Gaza, appelant à une action internationale urgente pour protéger les civils.</p>
+      </article>
+      <article>
+        <h3>📰 2025 : Campagne pour les journalistes emprisonnés</h3>
+        <p>Nous lançons une campagne mondiale pour la libération des journalistes détenus injustement dans plusieurs pays, soulignant l’importance de la liberté de la presse.</p>
+      </article>
+      <article>
+        <h3>⚖️ 2024 : Succès contre la peine de mort au Ghana</h3>
+        <p>Grâce aux efforts de plaidoyer, le Ghana a pris des mesures significatives pour limiter l’usage de la peine de mort, une victoire majeure pour les droits humains.</p>
+      </article>
+      <article>
+        <h3>🌍 2024 : Protection des réfugiés au Moyen-Orient</h3>
+        <p>Amnesty intensifie ses actions pour garantir la protection et les droits fondamentaux des réfugiés dans les zones de conflit au Moyen-Orient.</p>
+      </article>
+      <article>
+        <h3>🛑 2023 : Lutte contre la violence policière</h3>
+        <p>Une campagne renforcée est menée pour dénoncer les violences policières dans plusieurs pays, avec un appel à la responsabilité et à la réforme.</p>
+      </article>
+      <article>
+        <h3>📢 2023 : Campagne pour les droits des femmes</h3>
+        <p>Amnesty milite activement pour les droits des femmes, notamment contre les discriminations et violences sexistes.</p>
+      </article>
+      <article>
+        <h3>🔒 2023 : Libération de prisonniers d’opinion</h3>
+        <p>De nombreux prisonniers injustement incarcérés ont retrouvé leur liberté à travers le monde grâce aux efforts d’Amnesty.</p>
+      </article>
+      <article>
+        <h3>🌐 2022 : Nouvelles lois pour la liberté d’expression</h3>
+        <p>Plusieurs pays ont adopté des lois renforçant la liberté d’expression, suite à la pression des militants et d’Amnesty International.</p>
+      </article>
+      <article>
+        <h3>⚠️ 2022 : Alerte sur la situation au Myanmar</h3>
+        <p>Amnesty tire la sonnette d’alarme sur la situation des droits humains au Myanmar, appelant la communauté internationale à intervenir.</p>
+      </article>
+      <article>
+        <h3>🤝 2022 : Partenariats pour la paix</h3>
+        <p>Nous développons des partenariats avec des ONG locales pour promouvoir la paix et les droits humains dans les zones de conflit.</p>
+      </article>
+
+    </section>
+
+    <section id="contact" tabindex="0">
+      <h2 class="section-title" id="contact-title">Contactez-nous</h2>
+      <p id="contact-text">Vous souhaitez en savoir plus, rejoindre nos actions ou faire un don ? Contactez-nous via le formulaire ci-dessous.</p>
+
+      <form aria-label="Formulaire de contact" id="contact-form" novalidate>
+        <label for="name" id="label-name">Nom complet</label>
+        <input type="text" id="name" name="name" placeholder="Votre nom complet" required />
+
+        <label for="email" id="label-email">Email</label>
+        <input type="email" id="email" name="email" placeholder="votre.email@example.com" required />
+
+        <label for="message" id="label-message">Message</label>
+        <textarea id="message" name="message" rows="5" placeholder="Votre message ici..." required></textarea>
+
+        <button type="submit" id="submit-btn">Envoyer</button>
+      </form>
+    </section>
+
+  </main>
+
+  <footer>
+    Amnesty International - Ce site a entièrement été fait par Rayane Chbani Idrissi , pour but de représenter et glorifier le travail de Amnesty International
+  </footer>
+
+  <script>
+    const toggleDarkBtn = document.getElementById('toggle-darkmode');
+    const toggleLangBtn = document.getElementById('toggle-lang');
+
+    // Texte français
+    const textsFR = {
+      headerDesc: "Défendons les droits humains partout dans le monde.",
+      presentationTitle: "Présentation",
+      presentationText: "Amnesty International est une organisation mondiale indépendante qui lutte pour le respect, la protection et la promotion des droits humains. Depuis 1961, elle enquête, expose les abus, et mobilise les citoyens.",
+      presentationQuote: "« Il vaut mieux allumer une bougie que maudire l'obscurité. »",
+      campagnesTitle: "Campagnes en cours",
+      campagnesText: "Nous nous engageons contre les violences policières, pour les droits des réfugiés, la liberté d'expression, les droits des femmes, et l'abolition de la peine de mort.",
+      actionsTitle: "Nos Actions",
+      actionsText: "Chaque année, Amnesty mobilise des millions de personnes autour d’actions de plaidoyer, d’envoi de lettres, et de campagnes pour changer des lois injustes.",
+      actionsHighlight: "✊ Amnesty a contribué à la libération de plus de 1000 prisonniers d'opinion depuis sa création.",
+      actualitesTitle: "Actualités",
+      contactTitle: "Contactez-nous",
+      contactText: "Vous souhaitez en savoir plus, rejoindre nos actions ou faire un don ? Contactez-nous via le formulaire ci-dessous.",
+      navPresentation: "Présentation",
+      navCampagnes: "Campagnes",
+      navActions: "Actions",
+      navActualites: "Actualités",
+      navContact: "Contact",
+      formName: "Nom complet",
+      formEmail: "Email",
+      formMessage: "Message",
+      formSubmit: "Envoyer"
+    };
+
+    // Texte anglais
+    const textsEN = {
+      headerDesc: "Defending human rights worldwide.",
+      presentationTitle: "Presentation",
+      presentationText: "Amnesty International is an independent global organization fighting for respect, protection, and promotion of human rights. Since 1961, it investigates, exposes abuses, and mobilizes citizens.",
+      presentationQuote: "“It is better to light a candle than curse the darkness.”",
+      campagnesTitle: "Ongoing Campaigns",
+      campagnesText: "We engage against police violence, refugee rights, freedom of expression, women's rights, and the abolition of the death penalty.",
+      actionsTitle: "Our Actions",
+      actionsText: "Each year, Amnesty mobilizes millions of people around advocacy actions, letter writing, and campaigns to change unjust laws.",
+      actionsHighlight: "✊ Amnesty has contributed to the release of over 1000 prisoners of conscience since its creation.",
+      actualitesTitle: "News",
+      contactTitle: "Contact Us",
+      contactText: "Want to learn more, join our actions, or make a donation? Contact us via the form below.",
+      navPresentation: "Presentation",
+      navCampagnes: "Campaigns",
+      navActions: "Actions",
+      navActualites: "News",
+      navContact: "Contact",
+      formName: "Full Name",
+      formEmail: "Email",
+      formMessage: "Message",
+      formSubmit: "Send"
+    };
+
+    let isFR = true;
+
+    // Fonction pour changer la langue
+    toggleLangBtn.addEventListener('click', () => {
+      isFR = !isFR;
+      if(isFR){
+        toggleLangBtn.textContent = 'FR';
+        toggleLangBtn.setAttribute('aria-label', 'Changer la langue');
+      } else {
+        toggleLangBtn.textContent = 'EN';
+        toggleLangBtn.setAttribute('aria-label', 'Switch language to French');
+      }
+
+      // Mise à jour des textes
+      document.getElementById('header-desc').textContent = isFR ? textsFR.headerDesc : textsEN.headerDesc;
+      document.getElementById('presentation-title').textContent = isFR ? textsFR.presentationTitle : textsEN.presentationTitle;
+      document.getElementById('presentation-text').textContent = isFR ? textsFR.presentationText : textsEN.presentationText;
+      document.getElementById('presentation-quote').textContent = isFR ? textsFR.presentationQuote : textsEN.presentationQuote;
+      document.getElementById('campagnes-title').textContent = isFR ? textsFR.campagnesTitle : textsEN.campagnesTitle;
+      document.getElementById('campagnes-text').textContent = isFR ? textsFR.campagnesText : textsEN.campagnesText;
+      document.getElementById('actions-title').textContent = isFR ? textsFR.actionsTitle : textsEN.actionsTitle;
+      document.getElementById('actions-text').textContent = isFR ? textsFR.actionsText : textsEN.actionsText;
+      document.getElementById('actions-highlight').textContent = isFR ? textsFR.actionsHighlight : textsEN.actionsHighlight;
+      document.getElementById('actualites-title').textContent = isFR ? textsFR.actualitesTitle : textsEN.actualitesTitle;
+      document.getElementById('contact-title').textContent = isFR ? textsFR.contactTitle : textsEN.contactTitle;
+      document.getElementById('contact-text').textContent = isFR ? textsFR.contactText : textsEN.contactText;
+
+      // Nav links
+      const navLinks = document.querySelectorAll('nav a');
+      navLinks[0].textContent = isFR ? textsFR.navPresentation : textsEN.navPresentation;
+      navLinks[1].textContent = isFR ? textsFR.navCampagnes : textsEN.navCampagnes;
+      navLinks[2].textContent = isFR ? textsFR.navActions : textsEN.navActions;
+      navLinks[3].textContent = isFR ? textsFR.navActualites : textsEN.navActualites;
+      navLinks[4].textContent = isFR ? textsFR.navContact : textsEN.navContact;
+
+      // Form labels & button
+      document.getElementById('label-name').textContent = isFR ? textsFR.formName : textsEN.formName;
+      document.getElementById('label-email').textContent = isFR ? textsFR.formEmail : textsEN.formEmail;
+      document.getElementById('label-message').textContent = isFR ? textsFR.formMessage : textsEN.formMessage;
+      document.getElementById('submit-btn').textContent = isFR ? textsFR.formSubmit : textsEN.formSubmit;
+    });
+
+    // Dark mode toggle
+    toggleDarkBtn.addEventListener('click', () => {
+      document.body.classList.toggle('dark-mode');
+      const isDark = document.body.classList.contains('dark-mode');
+      toggleDarkBtn.setAttribute('aria-pressed', isDark);
+      toggleDarkBtn.textContent = isDark ? '☀️' : '🌙';
+      toggleDarkBtn.setAttribute('aria-label', isDark ? 'Désactiver le mode sombre' : 'Activer le mode sombre');
+    });
+
+    // Contact form submit (simple alert)
+    document.getElementById('contact-form').addEventListener('submit', e => {
+      e.preventDefault();
+      alert(isFR ? "Merci pour votre message, nous vous répondrons bientôt." : "Thank you for your message, we will get back to you soon.");
+      e.target.reset();
+    });
+
+    // Désactivation clic droit et raccourcis devtools pour info si tu veux garder (optionnel)
+    /*
+    document.addEventListener('contextmenu', e => e.preventDefault());
+    document.addEventListener('keydown', e => {
+      if (
+        e.key === 'F12' ||
+        (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'i') ||
+        (e.ctrlKey && e.key.toLowerCase() === 'u')
+      ) {
+        e.preventDefault();
+      }
+    });
+    */
+  </script>
+
+</body>
+</html>
